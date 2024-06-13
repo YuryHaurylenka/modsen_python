@@ -3,3 +3,5 @@ myvenv/
 .idea
 .idea/
 /duplicates.csv
+__pycache__/
+/.DS_Store
