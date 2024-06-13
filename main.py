@@ -78,6 +78,6 @@ def main(folder1: str, folder2: str) -> None:
 
 
 if __name__ == "__main__":
-    first_folder = "path_to_first_folder"
-    second_folder = "path_to_second_folder"  # Set to None if you don't want to compare with another folder
+    first_folder = "/Users/yura/screens"
+    second_folder = None  # Set to None if you don't want to compare with another folder
     main(first_folder, second_folder)
