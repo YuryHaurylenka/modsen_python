@@ -1,27 +1,29 @@
 import os
+from typing import List, Dict
 
 import imagehash
 import pandas as pd
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 
 
-def load_images_from_folder(folder: str) -> dict:
+def load_images_from_folder(folder: str,
+                            supported_formats: List[str] = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']) -> dict:
     """
     Load images from the folder.
     """
     images = {}
     for filename in os.listdir(folder):
-        if filename.endswith('.jpg') or filename.endswith('.jpeg'):
+        if any(filename.lower().endswith(fmt) for fmt in supported_formats):
             img_path = os.path.join(folder, filename)
             try:
                 img = Image.open(img_path)
                 images[img_path] = img
-            except (IOError, SyntaxError) as e:
+            except (IOError, UnidentifiedImageError) as e:
                 print(f"Error loading image {img_path}: {e}")
     return images
 
 
-def calculate_image_hashes(images: dict) -> dict:
+def calculate_image_hashes(images: dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
     """
     Calculate each image hashes.
     """
@@ -38,15 +40,14 @@ def calculate_image_hashes(images: dict) -> dict:
     return hashes
 
 
-def find_duplicates(hashes: dict) -> dict:
+def find_duplicates(hashes: Dict[imagehash.ImageHash, List[str]]) -> Dict[imagehash.ImageHash, List[str]]:
     """
     Find duplicate images relying on hashes sum.
     """
-    duplicates = {k: v for k, v in hashes.items() if len(v) > 1}
-    return duplicates
+    return {k: v for k, v in hashes.items() if len(v) > 1}
 
 
-def display_duplicates(duplicates: dict) -> None:
+def display_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> None:
     """
     Display duplicate images in console.
     """
@@ -57,7 +58,7 @@ def display_duplicates(duplicates: dict) -> None:
         print()
 
 
-def save_result(duplicates: dict, output_file="duplicates.csv") -> None:
+def save_result(duplicates: Dict[imagehash.ImageHash, List[str]], output_file="duplicates.csv") -> None:
     """
     Save duplicate images to a CSV file.
     """
