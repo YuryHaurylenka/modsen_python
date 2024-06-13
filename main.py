@@ -1,6 +1,7 @@
 import os
 
 import imagehash
+import pandas as pd
 from PIL import Image
 
 
@@ -44,6 +45,7 @@ def find_duplicates(hashes: dict) -> dict:
     duplicates = {k: v for k, v in hashes.items() if len(v) > 1}
     return duplicates
 
+
 def display_duplicates(duplicates: dict) -> None:
     """
     Display duplicate images in console.
@@ -53,3 +55,28 @@ def display_duplicates(duplicates: dict) -> None:
         for path in paths:
             print(f"\t{path}")
         print()
+
+
+def save_result(duplicates: dict, output_file="duplicates.csv") -> None:
+    """
+    Save duplicate images to a CSV file.
+    """
+    df = pd.DataFrame([(k, path) for k, paths in duplicates.items() for path in paths], columns=['hash', 'path'])
+    df.to_csv(output_file, index=False)
+
+
+def main(folder1: str, folder2: str) -> None:
+    images = load_images_from_folder(folder1)
+    if folder2:
+        images.update(load_images_from_folder(folder2))
+
+    hashes = calculate_image_hashes(images)
+    duplicates = find_duplicates(hashes)
+    display_duplicates(duplicates)
+    save_result(duplicates)
+
+
+if __name__ == "__main__":
+    first_folder = "path_to_first_folder"
+    second_folder = "path_to_second_folder"  # Set to None if you don't want to compare with another folder
+    main(first_folder, second_folder)
