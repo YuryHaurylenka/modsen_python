@@ -1,4 +1,5 @@
-.venv
-venv/
+.myvenv
+myvenv/
 .idea
 .idea/
+/duplicates.csv
