@@ -6,7 +6,6 @@ imageio==2.34.1
 iniconfig==2.0.0
 kiwisolver==1.4.5
 lazy_loader==0.4
-matplotlib==3.9.0
 networkx==3.3
 numpy==1.26.4
 opencv-python==4.10.0.82
