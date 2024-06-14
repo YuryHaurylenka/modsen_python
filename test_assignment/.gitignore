@@ -1,7 +1,7 @@
 .myvenv
 myvenv/
 myenv.bak/
-.idea
+../.idea
 .idea/
 /duplicates.csv
 __pycache__/
