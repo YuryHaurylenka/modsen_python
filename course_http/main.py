@@ -57,12 +57,14 @@ async def get_all_statuses():
 @app.get("/minsk")
 async def get_weather_minsk():
     city = "Minsk"
+    params = {"q": city, "appid": CORRECT_API_KEY, "units": "metric"}
 
     async with httpx.AsyncClient() as client:
-        response = await client.get(BASE_URL, params={"q": city, "appid": CORRECT_API_KEY, "units": "metric"})
+        response = await client.get(BASE_URL, params=params)
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail=response.json())
         weather_data = response.json()
+        # print(weather_data)
 
     return {
         "city": city,
