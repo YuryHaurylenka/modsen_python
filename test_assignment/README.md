@@ -1,6 +1,7 @@
-# EN
+# Image Duplicate Finder
 
-# Modsen Image Duplicate Finder
+
+# EN
 
 ## Description
 
@@ -34,8 +35,6 @@ Modsen Image Duplicate Finder is a tool for detecting duplicate images in specif
     ```
 
 # RU
-
-# Modsen Image Duplicate Finder
 
 ## Описание
 
