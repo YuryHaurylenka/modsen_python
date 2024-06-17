@@ -97,8 +97,6 @@ The `/statuses` endpoint checks the following cases:
 
 # RU
 
-# Запросы к OpenWeather API
-
 Этот проект предназначен для работы с OpenWeather API и включает функциональность для получения статусов ответов и информации о погоде для определенного города.
 
 ## Установка
