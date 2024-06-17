@@ -82,5 +82,3 @@ async def get_weather_city(city: str):
         "humidity": weather_data["main"]["humidity"],
         "wind_speed": weather_data["wind"]["speed"]
     }
-
-# TODO read api docs.
