@@ -1,5 +1,5 @@
 import os
-from typing import List, Dict
+from typing import Dict, List
 
 import imagehash
 import pandas as pd
@@ -13,13 +13,15 @@ def load_images_from_folder(folder: str,
     """
     images = {}
     for filename in os.listdir(folder):
-        if any(filename.lower().endswith(fmt) for fmt in supported_formats):
-            img_path = os.path.join(folder, filename)
-            try:
-                img = Image.open(img_path)
-                images[img_path] = img
-            except (IOError, UnidentifiedImageError) as e:
-                print(f"Error loading image {img_path}: {e}")
+        file_ext = os.path.splitext(filename)[1].lower()
+        if file_ext not in supported_formats:
+            raise ValueError(f"Unsupported image format: {file_ext}")
+        img_path = os.path.join(folder, filename)
+        try:
+            img = Image.open(img_path)
+            images[img_path] = img
+        except (IOError, UnidentifiedImageError) as e:
+            print(f"Error loading image {img_path}: {e}")
     return images
 
 
