@@ -170,3 +170,4 @@ cython_debug/
 #.idea/
 /course_http/http_venv/
 /test_assignment/duplicates.csv
+/test_assignment/Lilly/
