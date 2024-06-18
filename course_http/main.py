@@ -32,7 +32,20 @@ async def get_all_statuses():
         {"params": {"q": "Minsk", "appid": CORRECT_API_KEY},
          "description": "Correct API key and another valid city name"},
         {"params": {"q": "", "appid": CORRECT_API_KEY}, "description": "Empty city name"},
-        {"params": {"q": "12345", "appid": CORRECT_API_KEY}, "description": "City name with numbers"}
+        {"params": {"q": "12345", "appid": CORRECT_API_KEY}, "description": "City name with numbers"},
+        {"params": {}, "description": "Empty params"},
+        {"params": {"q": "Minsk", "appid": CORRECT_API_KEY, "units": "unknown_unit"},
+         "description": "Invalid units parameter"},
+        {"params": {"lat": "90.1", "lon": "0", "appid": CORRECT_API_KEY}, "description": "Latitude out of bounds"},
+        {"params": {"lat": "0", "lon": "180.1", "appid": CORRECT_API_KEY}, "description": "Longitude out of bounds"},
+        {"params": {"q": "London", "appid": CORRECT_API_KEY, "cnt": "invalid_count"},
+         "description": "Invalid count parameter"},
+        {"params": {"q": "", "appid": CORRECT_API_KEY}, "description": "Empty city name"},
+        {"params": {"q": " ", "appid": CORRECT_API_KEY}, "description": "Space as city name"},
+        {"params": {"q": "VeryLongCityNameThatDoesNotExist1234567890", "appid": CORRECT_API_KEY},
+         "description": "Non-existent long city name"},
+        {"params": {"q": "London", "appid": CORRECT_API_KEY, "lang": "unknown_language"},
+         "description": "Unknown language parameter"}
     ]
 
     statuses = []
@@ -58,6 +71,8 @@ async def get_all_statuses():
                     "status_code": response.status_code,
                     "response_body": response.json()
                 })
+    for status in statuses:
+        print(f"Description: {status['description']}, Status Code: {status['status_code']}")
 
     return {"statuses": statuses}
 
