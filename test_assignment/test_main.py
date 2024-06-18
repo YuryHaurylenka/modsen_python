@@ -11,6 +11,7 @@ TEST_IMAGE_1 = os.path.join(TEST_FOLDER, "image1.jpg")
 TEST_IMAGE_2 = os.path.join(TEST_FOLDER, "image2.png")
 TEST_IMAGE_UNSUPPORTED = os.path.join(TEST_FOLDER, "unsupported.txt")
 TEST_IMAGE_CORRUPTED = os.path.join(TEST_FOLDER, "corrupted.jpg")
+TEST_IMAGE_DUPLICATE = os.path.join(TEST_FOLDER, "duplicate.jpg")
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -22,10 +23,12 @@ def setup_test_folder():
 
     Image.new('RGB', (100, 100)).save(TEST_IMAGE_1)
     Image.new('RGB', (100, 100)).save(TEST_IMAGE_2)
+    Image.new('RGB', (100, 100)).save(TEST_IMAGE_DUPLICATE)
+
     with open(TEST_IMAGE_UNSUPPORTED, "w") as f:
         f.write("This is not an image")
     yield
-    for file in [TEST_IMAGE_1, TEST_IMAGE_2, TEST_IMAGE_UNSUPPORTED, TEST_IMAGE_CORRUPTED]:
+    for file in [TEST_IMAGE_1, TEST_IMAGE_2, TEST_IMAGE_UNSUPPORTED, TEST_IMAGE_CORRUPTED, TEST_IMAGE_DUPLICATE]:
         if os.path.exists(file):
             os.remove(file)
     os.rmdir(TEST_FOLDER)
@@ -36,7 +39,7 @@ def test_load_images_from_folder():
     with pytest.raises(ValueError) as excinfo:
         images = load_images_from_folder(TEST_FOLDER, supported_formats=['.jpg', '.png'])
         assert str(excinfo.value) == "Unsupported image format: .txt"
-        assert len(images) == 2
+        assert len(images) == 3
 
 
 def test_calculate_image_hashes():
@@ -62,7 +65,8 @@ def test_find_duplicates():
         duplicates = find_duplicates(hashes)
 
         assert isinstance(duplicates, dict)
-        assert len(duplicates) == 0
+        assert len(duplicates) == 1
+        assert len(duplicates[list(duplicates.keys())[0]]) == 2
 
 
 def test_save_result():
