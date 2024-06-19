@@ -34,6 +34,21 @@ Modsen Image Duplicate Finder is a tool for detecting duplicate images in specif
     python main.py
     ```
 
+### Running the tests
+
+1. Navigate to the assignment folder:
+   
+   ```bash
+   cd test_assignment/
+   ```
+
+2. Run the tests using the pytest command:
+   
+   ```bash
+   pytest
+   ```
+   
+
 # RU
 
 ## Описание
@@ -67,3 +82,17 @@ Modsen Image Duplicate Finder — это инструмент для поиск�
     ```bash
     python main.py
     ```
+   
+### Запуск тестов
+
+1. Перейдите в папку с заданием:
+
+   ```bash
+   cd test_assignment/
+   ```
+
+2. Запустите тесты командой pytest:
+   
+   ```bash
+   pytest
+   ```
