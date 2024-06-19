@@ -7,15 +7,19 @@ from PIL import Image, UnidentifiedImageError
 
 
 def load_images_from_folder(folder: str,
-                            supported_formats: List[str] = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']) -> dict:
+                            supported_formats: List[str] = None) -> dict:
     """
     Load images from the folder.
     """
+    if supported_formats is None:
+        supported_formats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
+
     images = {}
     for filename in os.listdir(folder):
         file_ext = os.path.splitext(filename)[1].lower()
         if file_ext not in supported_formats:
-            raise ValueError(f"Unsupported image format: {file_ext}")
+            print(f"Unsupported image format: {file_ext}")
+            continue
         img_path = os.path.join(folder, filename)
         try:
             img = Image.open(img_path)
@@ -27,7 +31,7 @@ def load_images_from_folder(folder: str,
 
 def calculate_image_hashes(images: dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
     """
-    Calculate each image hashes.
+    Calculate each image's hash.
     """
     hashes = {}
     for path, img in images.items():
