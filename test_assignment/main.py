@@ -1,5 +1,5 @@
 import os
-from typing import List, Dict
+from typing import Dict, List
 
 import imagehash
 import pandas as pd
@@ -7,25 +7,31 @@ from PIL import Image, UnidentifiedImageError
 
 
 def load_images_from_folder(folder: str,
-                            supported_formats: List[str] = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']) -> dict:
+                            supported_formats: List[str] = None) -> dict:
     """
     Load images from the folder.
     """
+    if supported_formats is None:
+        supported_formats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
+
     images = {}
     for filename in os.listdir(folder):
-        if any(filename.lower().endswith(fmt) for fmt in supported_formats):
-            img_path = os.path.join(folder, filename)
-            try:
-                img = Image.open(img_path)
-                images[img_path] = img
-            except (IOError, UnidentifiedImageError) as e:
-                print(f"Error loading image {img_path}: {e}")
+        file_ext = os.path.splitext(filename)[1].lower()
+        if file_ext not in supported_formats:
+            print(f"Unsupported image format: {file_ext}")
+            continue
+        img_path = os.path.join(folder, filename)
+        try:
+            img = Image.open(img_path)
+            images[img_path] = img
+        except (IOError, UnidentifiedImageError) as e:
+            print(f"Error loading image {img_path}: {e}")
     return images
 
 
 def calculate_image_hashes(images: dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
     """
-    Calculate each image hashes.
+    Calculate each image's hash.
     """
     hashes = {}
     for path, img in images.items():
