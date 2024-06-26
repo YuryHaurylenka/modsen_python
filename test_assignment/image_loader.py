@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import Dict, List
 
 from PIL import Image, UnidentifiedImageError
 
