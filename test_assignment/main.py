@@ -1,75 +1,7 @@
-import os
-from typing import Dict, List
-
-import imagehash
-import pandas as pd
-from PIL import Image, UnidentifiedImageError
-
-
-def load_images_from_folder(folder: str,
-                            supported_formats: List[str] = None) -> dict:
-    """
-    Load images from the folder.
-    """
-    if supported_formats is None:
-        supported_formats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
-
-    images = {}
-    for filename in os.listdir(folder):
-        file_ext = os.path.splitext(filename)[1].lower()
-        if file_ext not in supported_formats:
-            print(f"Unsupported image format: {file_ext}")
-            continue
-        img_path = os.path.join(folder, filename)
-        try:
-            img = Image.open(img_path)
-            images[img_path] = img
-        except (IOError, UnidentifiedImageError) as e:
-            print(f"Error loading image {img_path}: {e}")
-    return images
-
-
-def calculate_image_hashes(images: dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
-    """
-    Calculate each image's hash.
-    """
-    hashes = {}
-    for path, img in images.items():
-        try:
-            img_hash = imagehash.average_hash(img)
-            if img_hash in hashes:
-                hashes[img_hash].append(path)
-            else:
-                hashes[img_hash] = [path]
-        except Exception as e:
-            print(f"Error calculating hash for {path}: {e}")
-    return hashes
-
-
-def find_duplicates(hashes: Dict[imagehash.ImageHash, List[str]]) -> Dict[imagehash.ImageHash, List[str]]:
-    """
-    Find duplicate images relying on hashes sum.
-    """
-    return {k: v for k, v in hashes.items() if len(v) > 1}
-
-
-def display_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> None:
-    """
-    Display duplicate images in console.
-    """
-    for img_hash, paths in duplicates.items():
-        print(f"Hash: {img_hash}")
-        for path in paths:
-            print(f"\t{path}")
-        print()
-
-
-def save_result(duplicates: Dict[imagehash.ImageHash, List[str]], output_file="duplicates.csv") -> None:
-    """
-    Save duplicate images to a CSV file.
-    """
-    df = pd.DataFrame([(k, path) for k, paths in duplicates.items() for path in paths], columns=['hash', 'path'])
-    df.to_csv(output_file, index=False)
+from duplicate_finder import find_duplicates
+from image_hasher import calculate_image_hashes
+from image_loader import load_images_from_folder
+from result_handler import display_duplicates, save_result
 
 
 def main(folder1: str, folder2: str) -> None:
