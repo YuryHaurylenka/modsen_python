@@ -5,14 +5,15 @@ from PIL import Image, UnidentifiedImageError
 
 
 def load_images_from_folder(folder: str,
-                            supported_formats: List[str] = None) -> dict:
+                            supported_formats: List[str] = None) -> Dict[str, Image.Image]:
     """
     Load images from the folder.
     """
     if supported_formats is None:
         supported_formats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp']
 
-    images = {}
+    images: Dict[str, Image.Image] = {}
+
     for filename in os.listdir(folder):
         file_ext = os.path.splitext(filename)[1].lower()
         if file_ext not in supported_formats:

@@ -4,7 +4,7 @@ import imagehash
 from PIL import Image
 
 
-def calculate_image_hashes(images: dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
+def calculate_image_hashes(images: Dict[str, Image.Image]) -> Dict[imagehash.ImageHash, List[str]]:
     """
     Calculate each image's hash.
     """
