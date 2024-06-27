@@ -1,6 +1,8 @@
-from typing import List, Dict
+from typing import Dict, List
+
 import imagehash
 import pandas as pd
+
 
 def display_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> None:
     """
