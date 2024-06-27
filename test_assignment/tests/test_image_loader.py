@@ -1,6 +1,6 @@
 import pytest
 from PIL import Image
-from image_loader import load_images_from_folder
+from test_assignment.image_loader import load_images_from_folder
 
 
 def test_load_images_from_folder():

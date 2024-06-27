@@ -1,9 +1,9 @@
 import os
 
-from duplicate_finder import find_duplicates
-from image_hasher import calculate_image_hashes
-from image_loader import load_images_from_folder
-from result_handler import save_result
+from test_assignment.duplicate_finder import find_duplicates
+from test_assignment.image_hasher import calculate_image_hashes
+from test_assignment.image_loader import load_images_from_folder
+from test_assignment.result_handler import save_result
 
 
 def test_save_result():

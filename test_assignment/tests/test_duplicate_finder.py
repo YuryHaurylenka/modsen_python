@@ -1,7 +1,6 @@
-from duplicate_finder import find_duplicates
-from image_hasher import calculate_image_hashes
-from image_loader import load_images_from_folder
-
+from test_assignment.image_loader import load_images_from_folder
+from test_assignment.image_hasher import calculate_image_hashes
+from test_assignment.duplicate_finder import find_duplicates
 
 def test_find_duplicates():
     images = load_images_from_folder("test_images")

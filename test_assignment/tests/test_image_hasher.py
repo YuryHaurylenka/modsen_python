@@ -1,7 +1,7 @@
 import pytest
 from PIL import Image
-from image_hasher import calculate_image_hashes
-from image_loader import load_images_from_folder
+from test_assignment.image_hasher import calculate_image_hashes
+from test_assignment.image_loader import load_images_from_folder
 from imagehash import ImageHash
 
 
