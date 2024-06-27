@@ -171,3 +171,4 @@ cython_debug/
 /course_http/http_venv/
 /test_assignment/duplicates.csv
 /test_assignment/Lilly/
+.DS_Store
