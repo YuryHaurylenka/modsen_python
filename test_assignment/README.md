@@ -85,11 +85,10 @@ Modsen Image Duplicate Finder — это инструмент для поиск�
    
 ### Вывод дубликатов
 
-![](https://github.com/YuryHaurylenka/modsen_python/blob/develop/test_assignment/screenshots/structure.png)
-
+![alt text](/Users/yura/screens/Снимок экрана 2024-06-28 в 12.49.30 PM.png)
 
 ### Запуск тестов
-         
+
 1. Перейдите в папку с заданием:
 
    ```bash
