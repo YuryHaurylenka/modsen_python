@@ -7,7 +7,7 @@ def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> No
     root = tk.Tk()
     root.title("Duplicate Images")
 
-    window_width, window_height = 1000, 800
+    window_width, window_height = 700, 400
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     position_top = int(screen_height / 2 - window_height / 2)
@@ -18,21 +18,18 @@ def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> No
     main_frame.pack(fill=tk.BOTH, expand=1)
 
     canvas = tk.Canvas(main_frame)
-    scrollbar = tk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
+    v_scrollbar = tk.Scrollbar(main_frame, orient=tk.VERTICAL, command=canvas.yview)
+    h_scrollbar = tk.Scrollbar(main_frame, orient=tk.HORIZONTAL, command=canvas.xview)
     scrollable_frame = tk.Frame(canvas)
 
-    scrollable_frame.bind(
-        "<Configure>",
-        lambda e: canvas.configure(
-            scrollregion=canvas.bbox("all")
-        )
-    )
+    scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
-    canvas.configure(yscrollcommand=scrollbar.set)
+    canvas.configure(yscrollcommand=v_scrollbar.set, xscrollcommand=h_scrollbar.set)
 
     canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    v_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    h_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
 
     images = []
     current_hash = tk.StringVar()
@@ -51,8 +48,10 @@ def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> No
                 img.thumbnail((300, 300))
                 tk_img = ImageTk.PhotoImage(img)
                 images.append(tk_img)
-                tk.Label(scrollable_frame, text=path).pack(anchor="w")
-                tk.Label(scrollable_frame, image=tk_img).pack(anchor="w")
+                frame = tk.Frame(scrollable_frame)
+                frame.pack(side=tk.LEFT, padx=10, pady=10)
+                tk.Label(frame, text=path).pack()
+                tk.Label(frame, image=tk_img).pack()
             except Exception as e:
                 print(f"Error loading image for visualization {path}: {e}")
 
