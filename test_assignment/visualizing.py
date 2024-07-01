@@ -1,9 +1,14 @@
 import tkinter as tk
-from PIL import Image, ImageTk
 from typing import Dict, List
+
 import imagehash
+from PIL import Image, ImageTk
+
 
 def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> None:
+    """
+    Visualize duplicate images.
+    """
     root = tk.Tk()
     root.title("Duplicate Images")
 
@@ -22,8 +27,6 @@ def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> No
     h_scrollbar = tk.Scrollbar(main_frame, orient=tk.HORIZONTAL, command=canvas.xview)
     scrollable_frame = tk.Frame(canvas)
 
-    scrollable_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
-
     canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
     canvas.configure(yscrollcommand=v_scrollbar.set, xscrollcommand=h_scrollbar.set)
 
@@ -37,6 +40,10 @@ def visualize_duplicates(duplicates: Dict[imagehash.ImageHash, List[str]]) -> No
     current_index = 0
 
     def show_images_for_hash():
+        """
+        Show each duplicate image.
+
+        """
         nonlocal current_index
         for widget in scrollable_frame.winfo_children():
             widget.destroy()
