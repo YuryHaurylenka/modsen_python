@@ -208,3 +208,4 @@ cython_debug/
 .Trashes
 ehthumbs.db
 Thumbs.dbtest_assignment/.DS_Store
+/course_internet/venv_internet/
