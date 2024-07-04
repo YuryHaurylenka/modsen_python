@@ -1,8 +1,6 @@
 # Requests to OpenWeatherMap API
 
-
 # EN
-
 
 ## Description
 
@@ -183,7 +181,6 @@ For API testing, you can also use Postman.
    - URL: Send multiple requests in a short period (more than 60 per minute) to receive status code 429 Too Many Requests.
 
 # RU
-
 
 ## Описание
 

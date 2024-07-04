@@ -1,6 +1,5 @@
 # Image Duplicate Finder
 
-
 # EN
 
 ## Description
@@ -51,7 +50,6 @@ Modsen Image Duplicate Finder is a tool for detecting duplicate images in specif
    ```bash
    pytest
    ```
-   
 
 # RU
 
