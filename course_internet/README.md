@@ -18,7 +18,7 @@ pip install selenium
 
 ### ChromeDriver installation
 
-1. Download ChromeDriver с [официального сайта]().
+1. Download ChromeDriver с [официального сайта](https://googlechromelabs.github.io/chrome-for-testing/).
 2. Unzip the file and place it in a convenient location.
 3. Add the ChromeDriver path to your system's PATH variable or specify the full path in the script.
 
@@ -74,7 +74,7 @@ pip install selenium
 
 ### Установка ChromeDriver
 
-1. Скачайте ChromeDriver с [официального сайта]().
+1. Скачайте ChromeDriver с [официального сайта](https://googlechromelabs.github.io/chrome-for-testing/).
 2. Распакуйте файл и поместите его в удобное для вас место.
 3. Добавьте путь к ChromeDriver в переменную PATH вашей системы или укажите полный путь в скрипте.
 
